@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reloj Mundial</title>
+</head>
+<body>
+    <h1>Reloj Mundial</h1>
+    <div id="clocks"></div>
+
+    <script>
+        function updateClock() {
+            let clocksDiv = document.getElementById("clocks");
+            clocksDiv.innerHTML = '';
+            let timezones = ['America/New_York', 'Europe/London', 'Asia/Tokyo'];
+            timezones.forEach(tz => {
+                let now = new Date(new Date().toLocaleString("en-US", { timeZone: tz }));
+                clocksDiv.innerHTML += `<p>${tz}: ${now.toLocaleTimeString()}</p>`;
+            });
+        }
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el número</title>
+</head>
+<body>
+    <h1>Adivina el número</h1>
+    <input id="guessInput" type="number" placeholder="Adivina el número">
+    <button onclick="checkGuess()">Adivinar</button>
+    <p id="message"></p>
+    <p>Intentos restantes: <span id="attempts">5</span></p>
+
+    <script>
+        let secretNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 5;
+
+        function checkGuess() {
+            let guess = document.getElementById("guessInput").value;
+            if (guess == secretNumber) {
+                document.getElementById("message").textContent = "¡Felicidades, adivinaste el número!";
+            } else {
+                attempts--;
+                document.getElementById("attempts").textContent = attempts;
+                document.getElementById("message").textContent = guess < secretNumber ? "Demasiado bajo" : "Demasiado alto";
+                if (attempts === 0) {
+                    document.getElementById("message").textContent = "Se acabaron los intentos. El número era " + secretNumber;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

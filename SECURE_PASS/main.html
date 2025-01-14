@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contraseñas</title>
+</head>
+<body>
+    <h1>Generador de Contraseñas Seguras</h1>
+    <label for="length">Longitud de la contraseña:</label>
+    <input id="length" type="number" value="12" min="8" max="32">
+    <br>
+    <button onclick="generatePassword()">Generar</button>
+    <br>
+    <input id="password" type="text" readonly>
+    <button onclick="copyPassword()">Copiar</button>
+
+    <script>
+        function generatePassword() {
+            const length = document.getElementById("length").value;
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById("password").value = password;
+        }
+
+        function copyPassword() {
+            const passwordField = document.getElementById("password");
+            passwordField.select();
+            document.execCommand('copy');
+        }
+    </script>
+</body>
+</html>

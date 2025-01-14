@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de GitHub</title>
+</head>
+<body>
+    <h1>Buscador de Repositorios en GitHub</h1>
+    <input id="search" type="text" placeholder="Buscar repositorios...">
+    <button onclick="searchRepos()">Buscar</button>
+    <div id="results"></div>
+
+    <script>
+        async function searchRepos() {
+            let query = document.getElementById("search").value;
+            let response = await fetch(`https://api.github.com/search/repositories?q=${query}`);
+            let data = await response.json();
+            let results = document.getElementById("results");
+            results.innerHTML = "";
+            data.items.forEach(item => {
+                let repo = document.createElement("div");
+                repo.innerHTML = `<a href="${item.html_url}" target="_blank">${item.name}</a> - 
+                                  ${item.stargazers_count} estrellas - ${item.forks_count} forks`;
+                results.appendChild(repo);
+            });
+        }
+    </script>
+</body>
+</html>

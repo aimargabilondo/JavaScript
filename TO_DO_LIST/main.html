@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador de Tareas</title>
+</head>
+<body>
+    <h1>Administrador de Tareas</h1>
+    <input id="taskInput" type="text" placeholder="Nueva tarea">
+    <button onclick="addTask()">Agregar</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        let tasks = [];
+        function addTask() {
+            let taskText = document.getElementById("taskInput").value;
+            if (taskText !== "") {
+                tasks.push({ text: taskText, completed: false });
+                document.getElementById("taskInput").value = '';
+                renderTasks();
+            }
+        }
+
+        function toggleTask(index) {
+            tasks[index].completed = !tasks[index].completed;
+            renderTasks();
+        }
+
+        function removeTask(index) {
+            tasks.splice(index, 1);
+            renderTasks();
+        }
+
+        function renderTasks() {
+            let taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+            tasks.forEach((task, index) => {
+                let li = document.createElement("li");
+                li.innerHTML = `<span style="text-decoration: ${task.completed ? 'line-through' : 'none'};">${task.text}</span>
+                               <button onclick="toggleTask(${index})">✔</button>
+                               <button onclick="removeTask(${index})">✖</button>`;
+                taskList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
